@@ -1,0 +1,77 @@
+// Matrix Oracle Theme Color Palette
+
+// Red
+$red-light: #cc0022;
+$red-dark: #ff2548;
+
+// Pink
+$pink-light: #cc287d;
+$pink-dark: #e166a5;
+
+// Purple
+$purple-light: #7100bb;
+$purple-dark: #9f00ff;
+
+// Blue
+$blue-light: #0031a3;
+$blue-dark: #004cff;
+
+// Teal
+$teal-light: #0f805a;
+$teal-dark: #15b580;
+
+// Cyan
+$cyan-light: #0f8062;
+$cyan-dark: #2ee7b6;
+
+// Green
+$green-light: #4f7208;
+$green-dark: #c5f467;
+
+// Yellow
+$yellow-light: #7a5400;
+$yellow-dark: #ffcc5c;
+
+// Orange
+$orange-light: #915812;
+$orange-dark: #ebaa5c;
+
+// Accent
+$accent-light: #527a00;
+$accent-dark: #9fef00;
+
+// Grey
+$grey-050: #f1f4f9;
+$grey-100: #e2e8f3;
+$grey-150: #d4dded;
+$grey-200: #c5d1e7;
+$grey-250: #b7c6e1;
+$grey-300: #a9badb;
+$grey-350: #9aafd5;
+$grey-400: #8ca3cf;
+$grey-450: #7e98c9;
+$grey-500: #6181bd;
+$grey-550: #5276b7;
+$grey-600: #42629e;
+$grey-650: #304873;
+$grey-700: #243656;
+$grey-750: #1e2d48;
+$grey-800: #18243a;
+$grey-850: #121b2b;
+$grey-900: #0c121d;
+$grey-950: #06090e;
+
+// White
+$white: #a4b1cd;
+
+// Black
+$black: #1f2e47;
+
+// Theme
+$default-light: $accent-light;
+$default-dark: $accent-dark;
+
+// Button
+$button-close: if($topbar == 'light', #cc0022, #ff2548);
+$button-max: if($topbar == 'light', #516f20, #93c83f);
+$button-min: if($topbar == 'light', #e09900, #ffcc5c);
