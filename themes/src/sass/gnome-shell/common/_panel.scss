@@ -17,7 +17,7 @@
 	);
 
 	@if $float == 'true' {
-		margin: 5px 10px 1px;
+		/* margin: 5px 10px 1px; */
 		border: 2px solid $primary;
 		border-radius: $circular_radius;
 	}

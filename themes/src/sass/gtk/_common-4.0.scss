@@ -1844,7 +1844,12 @@ searchbar > revealer > box {
 %titlebar-button {
 	color: $titlebar-text-secondary;
 	background-color: if($topbar == 'light', rgba($base, 0.2), $titlebar-fill);
-	border-radius: $modal-radius;
+	background-color: if(
+		$variant == 'light',
+		rgba($base_alt, 0.5),
+		$titlebar-fill
+	);
+	border-radius: $corner-radius;
 	border: none;
 	outline: none;
 
@@ -1867,11 +1872,7 @@ searchbar > revealer > box {
 	}
 
 	&:hover {
-		background-color: if(
-			$variant == 'light',
-			rgba($base, 0.4),
-			$titlebar-divider
-		);
+		background-color: if($topbar == 'light', $base_alt, $titlebar-divider);
 	}
 
 	&:focus,
@@ -1932,7 +1933,7 @@ searchbar > revealer > box {
 %titlebar-entry {
 	background-color: $titlebar-fill;
 	color: $titlebar-text;
-	border-radius: $modal-radius;
+	border-radius: $corner-radius;
 
 	&:disabled {
 		background-color: $titlebar-fill;
@@ -2063,8 +2064,8 @@ headerbar {
 
 	splitbutton {
 		background-color: if(
-			$topbar == 'light',
-			rgba($white, 0.6),
+			$variant == 'light',
+			rgba($base_alt, 0.5),
 			$titlebar-fill
 		);
 		border-radius: $corner-radius;
@@ -4311,7 +4312,7 @@ separator {
  * Lists *
  *********/
 
-$list-row: if($variant == 'light', rgba($base, 0.3), $fill);
+$list-row: if($variant == 'light', rgba($base_alt, 0.5), $fill);
 
 %circular_list {
 	border-radius: $corner-radius;
@@ -5213,7 +5214,7 @@ separator.sidebar {
 	> row {
 		min-height: $small-size;
 		padding: 0 $space-size 0 $space-size;
-		margin: 1px;
+		margin: 0;
 		color: on($background);
 		border-radius: $modal-radius;
 
@@ -5267,6 +5268,18 @@ separator.sidebar {
 /****************
  * File chooser *
  ****************/
+
+#NautilusFileChooser gridview.view {
+	background-color: transparent;
+	margin: 10px 5px;
+	padding: 10px 5px;
+}
+
+#NautilusFileChooser columnview.view,
+row.activatable > cell {
+	background-color: transparent;
+	padding: 1px 10px;
+}
 
 filechooser {
 	paned {

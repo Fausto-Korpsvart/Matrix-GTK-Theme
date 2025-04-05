@@ -69,7 +69,7 @@ avatar {
 		color: $text-secondary;
 		box-shadow: none;
 		outline: none;
-		background-color: if($variant == 'light', rgba($base, 0.4), $fill);
+		background-color: if($variant == 'light', rgba($base_alt, 0.5), $fill);
 		color: $text;
 	}
 
@@ -281,6 +281,11 @@ preferencespage > scrolledwindow > viewport > clamp > box {
 }
 
 preferencesgroup > box {
+	background-preview widget.sidebar,
+	widget.header-bar:not(.editable-area) {
+		background-color: if($variant == 'light', $grey-200, $grey-900);
+	}
+
 	&,
 	.labels {
 		border-spacing: $space-size;
@@ -392,6 +397,10 @@ preferencesgroup > box {
 		&.slate {
 			--accent-bg-color: var(--accent-slate);
 		}
+	}
+
+	box > list.boxed-list-separate {
+		@extend %circular_row;
 	}
 }
 
@@ -528,7 +537,7 @@ overlay-split-view {
 %sidebar_list {
 	padding: 6px 0 6px 6px;
 	background: none;
-	color: on($background);
+	color: $titlebar-text-secondary;
 
 	> separator {
 		background-color: $divider;
@@ -536,29 +545,29 @@ overlay-split-view {
 	}
 
 	> row {
+		color: on($indicator, secondary);
 		border-radius: $modal-radius;
-		color: on($background);
+		color: $text;
 		padding: 7px 0;
 
 		&:hover,
 		&:active,
 		&:focus {
-			color: $primary;
+			color: $text;
 		}
 
 		&:selected {
-			font-weight: 500;
-			background-color: if($variant == 'light', rgba($base, 0.4), $fill);
+			/* background-color: if($variant == 'light', rgba($base, 0.4), $fill); */
+			background-color: $overlay-hover;
 			color: $primary;
+			font-weight: 500;
+			/* border-left: 3px solid $primary; */
 
 			&:hover,
 			&:focus {
-				background-color: if(
-					$variant == 'light',
-					rgba($base, 0.3),
-					$fill
-				);
-				color: $primary;
+				/* background-color: rgba($base, 0.9); */
+				background-color: $overlay-hover;
+				color: $text;
 			}
 		}
 	}
