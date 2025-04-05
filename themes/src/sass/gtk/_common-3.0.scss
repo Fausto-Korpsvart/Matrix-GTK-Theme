@@ -1416,8 +1416,8 @@ searchbar > revealer > box {
 
 %titlebar-button {
 	color: $titlebar-text-secondary;
-	background-color: if($topbar == 'light', rgba($white, 0.2), $titlebar-fill);
-	border-radius: $modal-radius;
+	background-color: if($topbar == 'light', rgba($base, 0.6), $titlebar-fill);
+	border-radius: $corner-radius;
 
 	.linked > & {
 		border-radius: 0;
@@ -1439,7 +1439,7 @@ searchbar > revealer > box {
 
 	&:hover {
 		box-shadow: inset 0 0 0 9999px
-			if($topbar == 'light', rgba($base, 0.4), $titlebar-divider);
+			if($topbar == 'light', rgba($base, 0.8), $titlebar-divider);
 	}
 
 	&:checked {
@@ -2205,7 +2205,7 @@ menu {
 
 		&:hover {
 			transition: none;
-			background-color: if($variant == 'light', $base, $fill);
+			background-color: if($variant == 'light', $grey-200, $fill);
 			color: $primary;
 
 			accelerator {
@@ -4020,17 +4020,22 @@ messagedialog {
 
 filechooser {
 	.csd & {
-		background-color: $base;
+		background-color: $background;
 		border-radius: 0 0 $window-radius $window-radius;
 	}
 
 	.dialog-action-box {
-		border-top: 1px solid $divider;
+		border-top: 1px solid transparent;
+	}
+
+	treeview.view header > button {
+		background-color: if($variant == 'light', $grey-150, $grey-900);
 	}
 
 	#pathbarbox {
-		border-bottom: 1px solid $divider;
-		background-color: $base;
+		background-color: if($variant == 'light', $grey-150, $grey-900);
+		border-radius: $window-radius $window-radius 0 0;
+		margin: 0 4px;
 
 		> stack > box > button {
 			// The new folder button
@@ -4041,11 +4046,11 @@ filechooser {
 
 	stack.view {
 		background-color: transparent;
-		padding: 4px;
+		padding: 0 4px;
 
 		scrolledwindow {
-			background-color: transparent;
-			border-radius: 0 0 $window-radius 0;
+			background-color: if($variant == 'light', $grey-150, $grey-900);
+			border-radius: 0 0 $window-radius $window-radius;
 
 			list {
 				background-color: transparent;
@@ -4069,6 +4074,12 @@ filechooser {
 
 	paned > separator {
 		background: none;
+	}
+
+	paned box.vertical {
+		background-color: if($variant == 'light', $grey-150, $grey-900);
+		border-radius: $window-radius;
+		margin: 0 6px 0 1px;
 	}
 }
 
@@ -4185,7 +4196,7 @@ stacksidebar.sidebar {
  ****************/
 
 placessidebar.sidebar {
-	margin: $space-size;
+	margin: 0 0 0 4px;
 	padding: 0;
 
 	> viewport.frame {
@@ -4211,7 +4222,8 @@ placessidebar.sidebar {
 
 		&:hover,
 		&:active {
-			background-color: if($variant == 'light', rgba($base, 0.4), $fill);
+			/* background-color: if($variant == 'light', rgba($base, 0.4), $fill); */
+			background-color: $overlay-hover;
 			color: $primary;
 		}
 
@@ -4222,8 +4234,9 @@ placessidebar.sidebar {
 		}
 
 		&:selected {
+			/* background-color: if($variant == 'light', rgba($base, 0.4), $fill); */
+			background-color: $overlay-hover;
 			color: $primary;
-			background-color: if($variant == 'light', rgba($base, 0.4), $fill);
 			font-weight: 500;
 
 			// &, image.sidebar-icon, button.sidebar-button { color: $text; }

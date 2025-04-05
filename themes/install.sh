@@ -29,7 +29,9 @@ SIZE_VARIANTS=('' '-Compact')
 if [[ "$(command -v gnome-shell)" ]]; then
 	gnome-shell --version
 	SHELL_VERSION="$(gnome-shell --version | cut -d ' ' -f 3 | cut -d . -f -1)"
-	if [[ "${SHELL_VERSION:-}" -ge "47" ]]; then
+	if [[ "${SHELL_VERSION:-}" -ge "48" ]]; then
+		GS_VERSION="48-0"
+	elif [[ "${SHELL_VERSION:-}" -ge "47" ]]; then
 		GS_VERSION="47-0"
 	elif [[ "${SHELL_VERSION:-}" -ge "46" ]]; then
 		GS_VERSION="46-0"
@@ -44,7 +46,7 @@ if [[ "$(command -v gnome-shell)" ]]; then
 	fi
 else
 	echo "'gnome-shell' not found, using styles for last gnome-shell version available."
-	GS_VERSION="47-0"
+	GS_VERSION="48-0"
 fi
 
 usage() {
@@ -56,7 +58,7 @@ OPTIONS:
 
   -n, --name NAME         Specify theme name (Default: $THEME_NAME)
 
-  -t, --theme VARIANT     Specify theme color variant(s) [default|purple|pink|red|orange|yellow|green|teal|grey|all] (Default: matrix)
+  -t, --theme VARIANT     Specify theme color variant(s) [default|purple|pink|red|orange|yellow|green|teal|grey|all] (Default: blue)
 
   -c, --color VARIANT     Specify color variant(s) [light|dark] (Default: All variants))
 
