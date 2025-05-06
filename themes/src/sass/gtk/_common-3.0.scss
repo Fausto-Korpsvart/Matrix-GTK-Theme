@@ -175,10 +175,6 @@ window.background.csd > stack.view {
 	border-radius: 0 0 $window-radius $window-radius;
 }
 
-textview.view {
-	background-color: if($variant == 'light', rgba($white, 0.4), $fill);
-}
-
 textview {
 	// FIXME: we need to override background-color to ensure text rendering
 
@@ -199,10 +195,6 @@ textview {
 	}
 }
 
-iconview.view {
-	background-color: if($variant == 'light', rgba($base, 0.4), $fill);
-}
-
 iconview {
 	&:hover,
 	&:selected {
@@ -217,11 +209,6 @@ rubberband {
 }
 
 flowbox {
-	box.horizontal {
-		background-color: if($variant == 'light', rgba($base, 0.3), $fill);
-		border-radius: 9px;
-	}
-
 	rubberband {
 		@extend rubberband;
 	}
@@ -1146,10 +1133,10 @@ combobox {
 	button.combo {
 		cellview {
 			&:dir(ltr) {
-				margin-left: 80px - ($medium-size - 16px) / 2;
+				margin-left: 8px - ($medium-size - 16px) / 2;
 			}
 			&:dir(rtl) {
-				margin-right: 80px - ($medium-size - 16px) / 2;
+				margin-right: 8px - ($medium-size - 16px) / 2;
 			}
 		}
 	}
@@ -1416,7 +1403,11 @@ searchbar > revealer > box {
 
 %titlebar-button {
 	color: $titlebar-text-secondary;
-	background-color: if($topbar == 'light', rgba($base, 0.6), $titlebar-fill);
+	background-color: if(
+		$topbar == 'light',
+		rgba($base_alt, 0.6),
+		$titlebar-fill
+	);
 	border-radius: $corner-radius;
 
 	.linked > & {
@@ -1439,7 +1430,7 @@ searchbar > revealer > box {
 
 	&:hover {
 		box-shadow: inset 0 0 0 9999px
-			if($topbar == 'light', rgba($base, 0.8), $titlebar-divider);
+			if($topbar == 'light', rgba($base_alt, 0.9), $titlebar-divider);
 	}
 
 	&:checked {
@@ -1781,7 +1772,7 @@ searchbar > revealer > box {
 headerbar {
 	// The sizing factor needs to be defined in the headerbar node for the case of split headerbars
 	min-height: $large-size;
-	padding: 1 $space-size;
+	padding: 0 $space-size;
 
 	box.vertical & {
 		background-color: $titlebar;
@@ -2183,10 +2174,12 @@ menu {
 	margin: $space-size; // See https://bugzilla.gnome.org/show_bug.cgi?id=591258
 	padding: $space-size;
 	background-color: $menu;
-	background-color: if($variant == 'light', $grey-200, $menu);
 	background-clip: border-box;
 	border-radius: $menu-radius;
-	border: 1px solid $primary;
+	/* border: 1px solid $primary; */
+	@if $outline == 'true' {
+		border: 2px solid $primary;
+	}
 
 	.csd & {
 		border: none;
@@ -2205,7 +2198,7 @@ menu {
 
 		&:hover {
 			transition: none;
-			background-color: if($variant == 'light', $grey-200, $fill);
+			background-color: $fill;
 			color: $primary;
 
 			accelerator {
@@ -2311,8 +2304,7 @@ menu {
 popover.background {
 	transition: $transition-shadow;
 	padding: 0;
-	/* background-color: $menu; */
-	background-color: if($variant == 'light', $grey-200, $menu);
+	background-color: $menu;
 	border-radius: $menu-radius;
 
 	&,
@@ -2320,14 +2312,14 @@ popover.background {
 		box-shadow: $shadow-z4;
 
 		@if $outline == 'false' {
-			/* box-shadow: none; */
+			// box-shadow: none;
 			box-shadow:
-				$shadow-z6,
+				$shadow-z16,
 				inset 0 1px highlight($background),
 				0 0 36px transparent;
 		} @else {
 			box-shadow:
-				$shadow-z6,
+				$shadow-z16,
 				0 0 0 2px $primary,
 				0 0 36px transparent;
 		}
@@ -3041,14 +3033,16 @@ radio {
 check {
 	&:checked {
 		-gtk-icon-source: -gtk-scaled(
-			- gtk-recolor(url('assets/checkbox-checked-symbolic.svg')),
-			- gtk-recolor(url('assets/checkbox-checked-symbolic@2.svg'))
+			- gtk-recolor(url('assets/scalable/checkbox-checked-symbolic.svg')),
+			- gtk-recolor(
+					url('assets/scalable/checkbox-checked-symbolic@2.svg')
+				)
 		);
 	}
 	&:indeterminate {
 		-gtk-icon-source: -gtk-scaled(
-			- gtk-recolor(url('assets/checkbox-mixed-symbolic.svg')),
-			- gtk-recolor(url('assets/checkbox-mixed-symbolic@2.svg'))
+			- gtk-recolor(url('assets/scalable/checkbox-mixed-symbolic.svg')),
+			- gtk-recolor(url('assets/scalable/checkbox-mixed-symbolic@2.svg'))
 		);
 	}
 }
@@ -3057,14 +3051,14 @@ check {
 radio {
 	&:checked {
 		-gtk-icon-source: -gtk-scaled(
-			- gtk-recolor(url('assets/radio-checked-symbolic.svg')),
-			- gtk-recolor(url('assets/radio-checked-symbolic@2.svg'))
+			- gtk-recolor(url('assets/scalable/radio-checked-symbolic.svg')),
+			- gtk-recolor(url('assets/scalable/radio-checked-symbolic@2.svg'))
 		);
 	}
 	&:indeterminate {
 		-gtk-icon-source: -gtk-scaled(
-			- gtk-recolor(url('assets/radio-mixed-symbolic.svg')),
-			- gtk-recolor(url('assets/radio-mixed-symbolic@2.svg'))
+			- gtk-recolor(url('assets/scalable/radio-mixed-symbolic.svg')),
+			- gtk-recolor(url('assets/scalable/radio-mixed-symbolic@2.svg'))
 		);
 	}
 }
@@ -3076,14 +3070,22 @@ menu menuitem check {
 
 	&:checked {
 		-gtk-icon-source: -gtk-scaled(
-			- gtk-recolor(url('assets/small-checkbox-checked-symbolic.svg')),
-			- gtk-recolor(url('assets/small-checkbox-checked-symbolic@2.svg'))
+			- gtk-recolor(
+					url('assets/scalable/small-checkbox-checked-symbolic.svg')
+				),
+			- gtk-recolor(
+					url('assets/scalable/small-checkbox-checked-symbolic@2.svg')
+				)
 		);
 	}
 	&:indeterminate {
 		-gtk-icon-source: -gtk-scaled(
-			- gtk-recolor(url('assets/small-checkbox-mixed-symbolic.svg')),
-			- gtk-recolor(url('assets/small-checkbox-mixed-symbolic@2.svg'))
+			- gtk-recolor(
+					url('assets/scalable/small-checkbox-mixed-symbolic.svg')
+				),
+			- gtk-recolor(
+					url('assets/scalable/small-checkbox-mixed-symbolic@2.svg')
+				)
 		);
 	}
 }
@@ -3095,14 +3097,20 @@ menu menuitem radio {
 
 	&:checked {
 		-gtk-icon-source: -gtk-scaled(
-			- gtk-recolor(url('assets/small-radio-checked-symbolic.svg')),
-			- gtk-recolor(url('assets/small-radio-checked-symbolic@2.svg'))
+			- gtk-recolor(
+					url('assets/scalable/small-radio-checked-symbolic.svg')
+				),
+			- gtk-recolor(
+					url('assets/scalable/small-radio-checked-symbolic@2.svg')
+				)
 		);
 	}
 	&:indeterminate {
 		-gtk-icon-source: -gtk-scaled(
-			- gtk-recolor(url('assets/small-radio-mixed-symbolic.svg')),
-			- gtk-recolor(url('assets/small-radio-mixed-symbolic@2.svg'))
+			- gtk-recolor(url('assets/scalable/small-radio-mixed-symbolic.svg')),
+			- gtk-recolor(
+					url('assets/scalable/small-radio-mixed-symbolic@2.svg')
+				)
 		);
 	}
 }
@@ -3171,8 +3179,10 @@ treeview.view {
 		background-color: $assets-color;
 		color: on($assets-color);
 		-gtk-icon-source: -gtk-scaled(
-			- gtk-recolor(url('assets/checkbox-checked-symbolic.svg')),
-			- gtk-recolor(url('assets/checkbox-checked-symbolic@2.svg'))
+			- gtk-recolor(url('assets/scalable/checkbox-checked-symbolic.svg')),
+			- gtk-recolor(
+					url('assets/scalable/checkbox-checked-symbolic@2.svg')
+				)
 		);
 	}
 }
@@ -3326,7 +3336,7 @@ scale {
 		{
 			&.#{$dir_class}.#{$marks_class} {
 				slider {
-					$_scale_asset: 'assets/scale-#{$dir_infix}-#{$marks_infix}-slider-symbolic';
+					$_scale_asset: 'assets/scalable/scale-#{$dir_infix}-#{$marks_infix}-slider-symbolic';
 					-gtk-icon-source: -gtk-recolor(url('#{$_scale_asset}.svg'));
 				}
 			}
@@ -3532,7 +3542,6 @@ printdialog {
 }
 
 .frame {
-	background-color: if($variant == 'light', rgba($base, 0.4), $fill);
 	@extend %frame;
 
 	&.view {
@@ -3918,10 +3927,6 @@ expander {
 /************
  * Calendar *
  ************/
-window box.vertical calendar {
-	background-color: if($variant == 'light', rgba($base, 0.4), $fill);
-}
-
 calendar {
 	padding: 1px;
 	border: 1px solid $divider;
@@ -4029,11 +4034,11 @@ filechooser {
 	}
 
 	treeview.view header > button {
-		background-color: if($variant == 'light', $grey-150, $grey-900);
+		background-color: if($variant == 'light', $grey-200, $grey-900);
 	}
 
 	#pathbarbox {
-		background-color: if($variant == 'light', $grey-150, $grey-900);
+		background-color: if($variant == 'light', $grey-200, $grey-900);
 		border-radius: $window-radius $window-radius 0 0;
 		margin: 0 4px;
 
@@ -4046,10 +4051,10 @@ filechooser {
 
 	stack.view {
 		background-color: transparent;
-		padding: 0 4px;
+		padding: 4px;
 
 		scrolledwindow {
-			background-color: if($variant == 'light', $grey-150, $grey-900);
+			background-color: if($variant == 'light', $grey-200, $grey-900);
 			border-radius: 0 0 $window-radius $window-radius;
 
 			list {
@@ -4077,7 +4082,7 @@ filechooser {
 	}
 
 	paned box.vertical {
-		background-color: if($variant == 'light', $grey-150, $grey-900);
+		background-color: if($variant == 'light', $grey-200, $grey-900);
 		border-radius: $window-radius;
 		margin: 0 6px 0 1px;
 	}
@@ -4222,7 +4227,6 @@ placessidebar.sidebar {
 
 		&:hover,
 		&:active {
-			/* background-color: if($variant == 'light', rgba($base, 0.4), $fill); */
 			background-color: $overlay-hover;
 			color: $primary;
 		}
@@ -4234,9 +4238,8 @@ placessidebar.sidebar {
 		}
 
 		&:selected {
-			/* background-color: if($variant == 'light', rgba($base, 0.4), $fill); */
-			background-color: $overlay-hover;
 			color: $primary;
+			background-color: $overlay-hover;
 			font-weight: 500;
 
 			// &, image.sidebar-icon, button.sidebar-button { color: $text; }
@@ -4831,7 +4834,7 @@ decoration {
 	min-height: 16px;
 	min-width: 16px;
 	padding: 0;
-	margin: 0 $space-size - 4px;
+	margin: 0 $space-size - 6px;
 	border-radius: $circular-radius;
 
 	&.minimize,
@@ -4862,7 +4865,7 @@ decoration {
 			background-color: if($variant == 'dark', $grey-700, $grey-300);
 			&:hover,
 			&:active {
-				color: transparent;
+				color: $titlebar-text-disabled;
 			}
 		}
 	}
@@ -4911,7 +4914,7 @@ decoration {
 	min-height: 22px;
 	min-width: 22px;
 	padding: 0;
-	margin: 0 $space-size - 4px;
+	margin: 0 $space-size - 6px;
 	border-radius: $circular-radius;
 
 	&.minimize,
@@ -5028,7 +5031,9 @@ button.titlebutton:not(.suggested-action):not(.destructive-action) {
 // touch selection handlebars for the Popover.osd above
 cursor-handle {
 	color: $primary;
-	-gtk-icon-source: -gtk-recolor(url('assets/cursor-handle-symbolic.svg'));
+	-gtk-icon-source: -gtk-recolor(
+		url('assets/scalable/cursor-handle-symbolic.svg')
+	);
 
 	&.top:dir(ltr),
 	&.bottom:dir(rtl) {
