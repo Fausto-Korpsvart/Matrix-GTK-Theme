@@ -69,7 +69,7 @@ avatar {
 		color: $text-secondary;
 		box-shadow: none;
 		outline: none;
-		background-color: if($variant == 'light', rgba($base_alt, 0.5), $fill);
+		background-color: if($variant == 'light', rgba($base, 0.6), $fill);
 		color: $text;
 	}
 
@@ -115,7 +115,7 @@ toast {
 
 // viewswitcher
 viewswitcher {
-	margin: 0;
+	margin: 2px;
 	border-spacing: $space-size / 2;
 
 	&.wide {
@@ -130,11 +130,6 @@ viewswitcher {
 			&:last-child {
 				border-top-right-radius: $medium-size / 2;
 				border-bottom-right-radius: $medium-size / 2;
-				/* background-color: if( */
-				/* 	$variant == 'light', */
-				/* 	rgba($base, 0.3), */
-				/* 	$fill */
-				/* ); */
 			}
 		}
 	}
@@ -187,7 +182,6 @@ viewswitcher {
 // AdwViewSwitcherBar
 viewswitcherbar actionbar > revealer > box {
 	padding: 0;
-	background-color: if($variant == 'light', rgba($base, 0.3), $fill);
 
 	viewswitcher.narrow button.toggle {
 		border-radius: $corner-radius;
@@ -283,7 +277,7 @@ preferencespage > scrolledwindow > viewport > clamp > box {
 preferencesgroup > box {
 	background-preview widget.sidebar,
 	widget.header-bar:not(.editable-area) {
-		background-color: if($variant == 'light', $grey-200, $grey-900);
+		background-color: if($variant == 'light', $grey-150, $grey-900);
 	}
 
 	&,
@@ -400,7 +394,34 @@ preferencesgroup > box {
 	}
 
 	box > list.boxed-list-separate {
-		@extend %circular_row;
+		background-color: transparent;
+		border-radius: $corner-radius;
+		& row {
+			color: $text;
+			background-color: if($variant == 'light', $base, $fill);
+			border-radius: $corner-radius $corner-radius 0 0;
+			margin-top: 0px;
+			margin-bottom: 2px;
+
+			&:first-child {
+				border-radius: $corner-radius $corner-radius 0 0;
+			}
+
+			&:last-child {
+				border-radius: 0 0 $corner-radius $corner-radius;
+				margin-bottom: 0;
+			}
+
+			& + row {
+				margin-top: 2px;
+			}
+
+			&:hover,
+			&:focus {
+				color: $text-secondary;
+				background-color: if($variant == 'light', $base, $fill);
+			}
+		}
 	}
 }
 
@@ -494,12 +515,12 @@ overlay-split-view {
 
 // Sidebar
 %sidebar_style {
-	background-color: if($variant == 'light', #b7c3da, $grey-900);
+	background-color: if($variant == 'light', $grey-150, $grey-900);
 
-	@if $colorscheme == 'morpheus' {
-		background-color: if($variant == 'light', #b7c3da, #111927);
-	} @else if $colorscheme == 'oracle' {
-		background-color: if($variant == 'light', #b7c3da, #141d2b);
+	@if $colorscheme == 'nord' {
+		background-color: if($variant == 'light', $grey-150, #262e38);
+	} @else if $colorscheme == 'carbon' {
+		background-color: if($variant == 'light', $grey-150, $grey-950);
 	}
 
 	color: on($background);
@@ -515,7 +536,7 @@ overlay-split-view {
 	background-color: $background;
 	color: on($background);
 	border-radius: 0;
-	margin: 0;
+	margin: 0 6px 0 0;
 
 	.dim-label {
 		color: on($indicator, disabled);
@@ -523,9 +544,9 @@ overlay-split-view {
 }
 
 %content_style {
-	color: on($background);
-	margin: $space-size;
+	// background-color: if($variant == 'light', rgba($white, 0.6), $fill);
 	// border-radius: $corner-radius;
+	margin: $space-size;
 }
 
 %nautilus_content_style {
@@ -548,7 +569,7 @@ overlay-split-view {
 		color: on($indicator, secondary);
 		border-radius: $modal-radius;
 		color: $text;
-		padding: 7px 0;
+		padding: 6px 0;
 
 		&:hover,
 		&:active,
@@ -575,19 +596,24 @@ overlay-split-view {
 
 %sidebar_scrollbar {
 	> range > trough {
+		margin: 0 -8px 0 0;
 		> slider {
-			background-color: $text-disabled;
+			background-color: if($variant == 'dark', $grey-800, $grey-200);
 
 			&:hover {
-				background-color: $text-secondary;
+				background-color: if($variant == 'dark', $grey-750, $grey-200);
 			}
 
 			&:active {
-				background-color: $text;
+				background-color: if($variant == 'dark', $grey-750, $grey-200);
 			}
 
 			&:disabled {
-				background-color: $text-secondary-disabled;
+				background-color: if(
+					$variant == 'dark',
+					$background,
+					$grey-050
+				);
 			}
 		}
 	}

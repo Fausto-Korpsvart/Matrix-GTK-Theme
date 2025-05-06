@@ -2,6 +2,52 @@
 // Globals
 //
 
+/* General Typography */
+%large_title {
+	font-weight: 300;
+	@include fontsize(24pt);
+}
+
+%title_1 {
+	font-weight: 800;
+	@include fontsize(20pt);
+}
+
+%title_2 {
+	font-weight: 800;
+	@include fontsize(15pt);
+}
+
+%title_3 {
+	font-weight: 700;
+	@include fontsize(15pt);
+}
+
+%title_4 {
+	font-weight: 700;
+	@include fontsize(13pt);
+}
+
+%heading {
+	font-weight: 700;
+	@include fontsize(11pt);
+}
+
+%caption_heading {
+	font-weight: 700;
+	@include fontsize(9pt);
+}
+
+%caption {
+	font-weight: 400;
+	@include fontsize(9pt);
+}
+
+%smaller {
+	font-weight: 400;
+	@include fontsize(8pt);
+}
+
 $asset_path: assets;
 $font-size: 10;
 $panel_bg: rgba($panel-solid, 0.75);
@@ -31,6 +77,7 @@ stage {
 	padding: 5px 32px;
 	transition-duration: 100ms;
 	border-radius: $corner-radius;
+
 	@include button(normal);
 
 	&:focus {
@@ -40,6 +87,7 @@ stage {
 	&:hover {
 		@include button(hover);
 		border-radius: $corner-radius;
+		color: $primary;
 	}
 	&:hover:focus {
 		@include button(focus-hover);
@@ -107,6 +155,7 @@ stage {
 	selected-color: on($primary);
 	transition-duration: 300ms;
 	border-radius: $corner-radius;
+
 	@include entry(normal);
 
 	&:focus,
@@ -336,7 +385,7 @@ $sub_menu_bg: mix($text, $popover, 10%);
 %menu {
 	padding: 0;
 	color: $text;
-	background-color: $popover;
+	// background-color: $popover;
 	border-radius: $menu-radius;
 	margin: $space-size;
 	box-shadow: none;
@@ -373,7 +422,7 @@ $sub_menu_bg: mix($text, $popover, 10%);
 	.popup-menu-content {
 		padding: $space-size;
 		border-radius: $menu-radius;
-		background-color: $background;
+		background-color: $popover;
 		box-shadow: 0 5px 12px rgba(black, 0.35);
 
 		@if $outline == 'true' {
@@ -1287,14 +1336,19 @@ $sub_menu_bg: mix($text, $popover, 10%);
 	background-color: $white;
 }
 
+.dialog,
 .modal-dialog {
-	color: on($tooltip);
-	background-color: rgba(darken($tooltip, 3%), 0.95);
-	padding: 0 5px 6px 5px;
+	color: on($background);
+	background-color: rgba($background, 0.95);
+	padding: $space-size;
 	border-radius: $corner-radius;
 	box-shadow:
 		0 3px 8px rgba(black, 0.75),
 		0 5px 18px rgba(black, 0.55);
+	/* border: 1px solid $divider; */
+	@if $outline == 'true' {
+		border: 2px solid $primary;
+	}
 
 	> StBoxLayout:first-child {
 		padding: 20px 10px 10px 10px;
@@ -1313,6 +1367,57 @@ $sub_menu_bg: mix($text, $popover, 10%);
 			height: 30px;
 
 			@extend %osd_button;
+		}
+	}
+
+	.dialog-content-box {
+		margin-top: $space-size;
+		margin-bottom: $space-size;
+		spacing: $space-size;
+		max-width: 18em;
+	}
+
+	.dialog-button {
+		@extend %button;
+
+		&:default {
+			@extend %flat_button;
+			&:hover {
+				background-color: lighten($error, 8%) !important;
+				color: on($error) !important;
+			}
+		}
+		&:destructive-action {
+			@extend %flat_button;
+			background-color: $error;
+			color: on($error);
+		}
+	}
+
+	.confirm-dialog-title {
+		@extend %title_2;
+		text-align: center;
+	}
+
+	// End session dialog
+
+	.end-session-dialog {
+		min-width: 40em;
+
+		.dialog-content-box {
+			spacing: 0;
+		}
+
+		.dialog-list {
+			spacing: 0;
+
+			.dialog-list-title {
+				color: $warning;
+				background-color: tranparentize($warning, 0.9);
+				padding: $space-size * 1.5;
+				border-radius: $corner-radius;
+				margin: $space-size 0;
+			}
 		}
 	}
 }
@@ -1370,6 +1475,61 @@ $sub_menu_bg: mix($text, $popover, 10%);
 		box-shadow: none;
 		background: none;
 		background-gradient-direction: none;
+	}
+}
+
+// password or authentication dialog
+
+.prompt-dialog {
+	width: 26em;
+
+	.dialog-content-box {
+		spacing: $space-size * 4;
+		margin-bottom: $space-size * 3;
+	}
+
+	&-password-entry {
+		@extend %entry;
+		width: 20em;
+	}
+
+	&-password-layout {
+		spacing: $space-size * 2;
+	}
+
+	&-error-label,
+	&-info-label,
+	&-null-label {
+		text-align: center;
+		@extend %caption;
+	}
+
+	&-error-label {
+		color: $error;
+	}
+}
+
+// polkit dialog
+
+.polkit-dialog {
+	&-user-layout {
+		text-align: center;
+		spacing: 2px;
+	}
+
+	&-user-combo {
+		@extend %flat_button;
+		@extend %heading;
+
+		border-radius: $modal-radius;
+		padding: $space-size $space-size * 6;
+
+		// special case the :insensitive button sinc we want
+		// the label to be the normal color when there are
+		// not multiple users
+		&:insensitive {
+			color: $text;
+		}
 	}
 }
 
@@ -1709,6 +1869,13 @@ $sub_menu_bg: mix($text, $popover, 10%);
 //
 // OSD
 //
+
+$barlevel_height: 6px;
+
+$ws_indicator_height: 32px;
+$ws_dot_active: $ws_indicator_height / 3;
+$ws_dot_inactive: $ws_indicator_height / 6;
+
 .info-osd {
 	text-align: center;
 	font-weight: bold;
@@ -1745,6 +1912,42 @@ $sub_menu_bg: mix($text, $popover, 10%);
 	.level-bar {
 		border-radius: $corner-radius;
 		background-color: $primary;
+	}
+}
+
+.workspace-switch-osd {
+	@extend %title_4;
+	color: $primary;
+	background-color: transparentize($background, 0.01);
+	/* border: 1px solid transparentize($divider, 0.01); */
+	@if $outline == 'true' {
+		border: 2px solid $primary;
+	}
+	border-radius: $modal-radius;
+	text-align: center;
+	padding: $space-size * 4;
+
+	min-width: 140px;
+	margin-bottom: 1em;
+	border-radius: 9999px;
+	font-weight: bold;
+	padding: $space-size * 2 $space-size * 6 0 $space-size * 6;
+
+	&-indicator-box {
+		spacing: $space-size * 2;
+	}
+
+	&-indicator {
+		background-color: transparentize($text, 0.5);
+		padding: $ws_dot_inactive / 2;
+		margin: ($ws_indicator_height - $ws_dot_inactive) / 2;
+		border-radius: $ws_indicator_height;
+
+		&:active {
+			background-color: $primary;
+			padding: $ws_dot_active / 2;
+			margin: ($ws_indicator_height - $ws_dot_active) / 2;
+		}
 	}
 }
 

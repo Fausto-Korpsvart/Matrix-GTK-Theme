@@ -9,7 +9,7 @@
 
 	// padding and margins to account for scrollbar
 	&:ltr {
-		margin-left: 0;
+		margin-left: 2px;
 		margin-right: $base_margin * 2;
 		padding-right: $base_padding + $base_margin;
 		border-right-width: 0;
@@ -38,7 +38,7 @@
 .message-view {
 	// to account for scrollbar
 	&:ltr {
-		margin-right: 0;
+		margin-right: 10px;
 	}
 	&:rtl {
 		margin-left: 0;
@@ -104,8 +104,8 @@
 
 // message bubbles
 .message {
-	padding: 0;
-	margin: $base_spacing / 2;
+	margin: 0 2px;
+	padding: $base_padding;
 	border-radius: $window_radius;
 
 	.popup-menu & {
@@ -113,40 +113,40 @@
 		padding: $base_padding;
 		margin: $base_margin;
 		color: $text-disabled;
-		background-color: if($variant == 'light', $grey-250, $grey-800);
-		box-shadow: 0 1px 2px 0 rgba(black, 0.03);
+		background-color: lighten($background, 2%);
+		box-shadow: 0 2px 2px 0 rgba(black, 0.04);
 		border: 1px solid rgba($divider, 0.04);
 		// bit of a hack here with border since we can't have double box-shadow
 
 		&:hover,
 		&:focus {
 			color: rgba($primary, 0.5);
-			background-color: if($variant == 'light', $grey-300, $grey-850);
-			box-shadow: 0 1px 2px rgba(black, 0.05) !important;
-			border: 1px solid rgba($divider, 0.08);
+			background-color: lighten($background, 3%);
+			box-shadow: 0 2px 2px rgba(black, 0.05) !important;
+			border: 1px solid rgba($divider, 0.06);
 		}
 
 		&:active {
 			color: $text;
-			background-color: if($variant == 'light', $grey-250, $grey-800);
+			background-color: lighten($background, 2%);
 			box-shadow: none !important;
 		}
 
 		&:insensitive {
 			color: $text-disabled;
-			background-color: if($variant == 'light', $grey-250, $grey-800);
+			background-color: lighten($background, 2%);
 			box-shadow: none !important;
 		}
 	}
 
 	&:second-in-stack {
-		background-color: if($variant == 'light', $grey-250, $grey-800);
-		box-shadow: 0 1px 2px 0 rgba(black, 0.03);
+		background-color: lighten($background, 2%);
+		box-shadow: 0 2px 2px 0 rgba(black, 0.04);
 		border: 1px solid rgba($divider, 0.03);
 	}
 
 	&:lower-in-stack {
-		background-color: if($variant == 'light', $grey-250, $grey-800);
+		background-color: lighten($background, 2%);
 		box-shadow: none;
 		border-color: if(
 			$variant == 'light',

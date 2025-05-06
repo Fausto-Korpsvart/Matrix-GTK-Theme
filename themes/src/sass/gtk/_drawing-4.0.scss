@@ -224,7 +224,7 @@
 	@if $t == flat-focus {
 		color: $text;
 		outline: 2px solid $fill;
-		outline-offset: -2px;
+		outline-offset: -1px;
 	}
 
 	@if $t == flat-active {
